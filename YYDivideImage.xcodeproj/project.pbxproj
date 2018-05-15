@@ -12,9 +12,12 @@
 		7520A7F820AB5DA100552E71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7520A7F620AB5DA100552E71 /* Main.storyboard */; };
 		7520A7FA20AB5DA100552E71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7520A7F920AB5DA100552E71 /* Assets.xcassets */; };
 		7520A7FD20AB5DA100552E71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7520A7FB20AB5DA100552E71 /* LaunchScreen.storyboard */; };
+		F19BEAF99AFB1693B7C9D5B7 /* Pods_YYDivideImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6865D5EE223A00CD45B61A76 /* Pods_YYDivideImage.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A26DF21FE341EBE0B5FD26D /* Pods-YYDivideImage.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYDivideImage.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YYDivideImage/Pods-YYDivideImage.debug.xcconfig"; sourceTree = "<group>"; };
+		6865D5EE223A00CD45B61A76 /* Pods_YYDivideImage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YYDivideImage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7520A7EF20AB5DA100552E71 /* YYDivideImage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YYDivideImage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7520A7F220AB5DA100552E71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7520A7F420AB5DA100552E71 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +25,7 @@
 		7520A7F920AB5DA100552E71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7520A7FC20AB5DA100552E71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7520A7FE20AB5DA100552E71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FDE7D18A68A6C93D3E0C03F6 /* Pods-YYDivideImage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYDivideImage.release.xcconfig"; path = "Pods/Target Support Files/Pods-YYDivideImage/Pods-YYDivideImage.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F19BEAF99AFB1693B7C9D5B7 /* Pods_YYDivideImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00ACC6099EEB671381931707 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5A26DF21FE341EBE0B5FD26D /* Pods-YYDivideImage.debug.xcconfig */,
+				FDE7D18A68A6C93D3E0C03F6 /* Pods-YYDivideImage.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		7520A7E620AB5DA100552E71 = {
 			isa = PBXGroup;
 			children = (
 				7520A7F120AB5DA100552E71 /* YYDivideImage */,
 				7520A7F020AB5DA100552E71 /* Products */,
+				00ACC6099EEB671381931707 /* Pods */,
+				BA862843BF96814D3C1C0902 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +80,14 @@
 			path = YYDivideImage;
 			sourceTree = "<group>";
 		};
+		BA862843BF96814D3C1C0902 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6865D5EE223A00CD45B61A76 /* Pods_YYDivideImage.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7520A80120AB5DA100552E71 /* Build configuration list for PBXNativeTarget "YYDivideImage" */;
 			buildPhases = (
+				BAD8B98670DEE2ECFC242AC5 /* [CP] Check Pods Manifest.lock */,
 				7520A7EB20AB5DA100552E71 /* Sources */,
 				7520A7EC20AB5DA100552E71 /* Frameworks */,
 				7520A7ED20AB5DA100552E71 /* Resources */,
+				69A7F4064E89D3B804D2E0CC /* [CP] Embed Pods Frameworks */,
+				CAEA0151F53B4D5EAA68954C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -130,6 +157,60 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		69A7F4064E89D3B804D2E0CC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-YYDivideImage/Pods-YYDivideImage-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YYDivideImage/Pods-YYDivideImage-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BAD8B98670DEE2ECFC242AC5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YYDivideImage-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CAEA0151F53B4D5EAA68954C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YYDivideImage/Pods-YYDivideImage-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7520A7EB20AB5DA100552E71 /* Sources */ = {
@@ -272,6 +353,7 @@
 		};
 		7520A80220AB5DA100552E71 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A26DF21FE341EBE0B5FD26D /* Pods-YYDivideImage.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -287,6 +369,7 @@
 		};
 		7520A80320AB5DA100552E71 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FDE7D18A68A6C93D3E0C03F6 /* Pods-YYDivideImage.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
