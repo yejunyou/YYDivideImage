@@ -14,6 +14,7 @@
 		7520A80720AB5E9300552E71 /* YYNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7520A80620AB5E9300552E71 /* YYNavigationViewController.swift */; };
 		7520A80820AB5EA500552E71 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7520A80920AB5EA500552E71 /* SnapKit.framework */; };
 		7520A80B20AB5FFA00552E71 /* YYDivideImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7520A80A20AB5FFA00552E71 /* YYDivideImageViewController.swift */; };
+		7520A80F20ABC88E00552E71 /* UIImage+Divide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7520A80E20ABC88E00552E71 /* UIImage+Divide.swift */; };
 		F19BEAF99AFB1693B7C9D5B7 /* Pods_YYDivideImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6865D5EE223A00CD45B61A76 /* Pods_YYDivideImage.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		7520A80620AB5E9300552E71 /* YYNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYNavigationViewController.swift; sourceTree = "<group>"; };
 		7520A80920AB5EA500552E71 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7520A80A20AB5FFA00552E71 /* YYDivideImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YYDivideImageViewController.swift; sourceTree = "<group>"; };
+		7520A80E20ABC88E00552E71 /* UIImage+Divide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Divide.swift"; sourceTree = "<group>"; };
 		FDE7D18A68A6C93D3E0C03F6 /* Pods-YYDivideImage.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YYDivideImage.release.xcconfig"; path = "Pods/Target Support Files/Pods-YYDivideImage/Pods-YYDivideImage.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +77,8 @@
 		7520A7F120AB5DA100552E71 /* YYDivideImage */ = {
 			isa = PBXGroup;
 			children = (
+				7520A80D20ABC82700552E71 /* Extension */,
+				7520A80C20ABC82000552E71 /* Tools */,
 				7520A7F220AB5DA100552E71 /* AppDelegate.swift */,
 				7520A80420AB5E8A00552E71 /* YYHomeViewController.swift */,
 				7520A80620AB5E9300552E71 /* YYNavigationViewController.swift */,
@@ -84,6 +88,21 @@
 				7520A7FE20AB5DA100552E71 /* Info.plist */,
 			);
 			path = YYDivideImage;
+			sourceTree = "<group>";
+		};
+		7520A80C20ABC82000552E71 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		7520A80D20ABC82700552E71 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				7520A80E20ABC88E00552E71 /* UIImage+Divide.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		BA862843BF96814D3C1C0902 /* Frameworks */ = {
@@ -226,6 +245,7 @@
 				7520A7F320AB5DA100552E71 /* AppDelegate.swift in Sources */,
 				7520A80520AB5E8A00552E71 /* YYHomeViewController.swift in Sources */,
 				7520A80720AB5E9300552E71 /* YYNavigationViewController.swift in Sources */,
+				7520A80F20ABC88E00552E71 /* UIImage+Divide.swift in Sources */,
 				7520A80B20AB5FFA00552E71 /* YYDivideImageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
