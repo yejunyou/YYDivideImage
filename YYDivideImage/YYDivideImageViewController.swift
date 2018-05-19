@@ -12,7 +12,9 @@ class YYDivideImageViewController: UIViewController {
     
     private var image: UIImage
     private var divideImages: [UIImage]?
+    private var imageViews: [UIImageView]? = []
     private var imageCount: Int?
+    
     
     // MARK: init ==method==
     init(image: UIImage) {
@@ -30,54 +32,85 @@ class YYDivideImageViewController: UIViewController {
         view.backgroundColor = UIColor.gray
         addSubviews()
         layout()
-        
+
         // 默认3x3
-        refreshLayout(row: 3, col: 3)
+        refreshLayout(row: pickerView.selectedRow, col: pickerView.selectedCol)
+        setupNavItem()
     }
     
     private func addSubviews(){
-//        view.addSubview(imageView)
+        view.addSubview(pickerView)
+    }
+    private func setupNavItem() {
+        let b = UIBarButtonItem(title: "resize", style: .plain, target: self, action:#selector(showPickerView))
+        self.navigationItem.rightBarButtonItem = b
+    }
+    
+    @objc private func showPickerView() {
+        pickerView.show()
+        view.bringSubview(toFront: pickerView)
     }
     
     private func layout(){
-//        imageView.snp.makeConstraints { (make) in
-//            make.left.equalTo(15)
-//            make.right.equalTo(-15)
-//            make.top.equalTo(44)
-//            make.bottom.equalTo(-15)
-//        }
+        
     }
     
     // MARK: ==private method==
     private func refreshLayout(row: Int, col: Int) {
-        divideImages?.removeAll();
-        divideImages = self.image.divide(row: row, col: col);
-        var index: Int = 0
         
+        divideImages = self.image.divide(row: row, col: col);
+        
+        let image = divideImages?.first
         let margin: CGFloat = 1;
-        let imageW: CGFloat = (view.bounds.size.width - margin *  CGFloat(col + 1)) / CGFloat(col);
-        let imageH: CGFloat = imageW;//(view.bounds.size.height - margin *  CGFloat(row + 1)) / CGFloat(row);
-//        CGFloat imageW = CGFloat(self.image.getDataSize());
+        let kScreenW: CGFloat = UIScreen.main.bounds.size.width
+        let imageOriginalW: CGFloat = (image?.size.width)! * CGFloat(col)
+//        let imageOriginalH: CGFloat = (image?.size.height)! * CGFloat(row)
+        
+        let scaleW = imageOriginalW/kScreenW
+        
+        let imageW: CGFloat = (image?.size.width)!/scaleW
+        let imageH: CGFloat = (image?.size.height)!/scaleW
         var imageX: CGFloat = 0;
         var imageY: CGFloat = 0;
         
+        var index: Int = 0
         for i in 0..<row*col {
+            let iv: UIImageView = UIImageView.init()
+            let image = divideImages?[index]
             let indexX: CGFloat = CGFloat(i%col)
             let indexY: CGFloat = CGFloat(i/row)
             imageX = margin + imageW * indexX + indexX * margin
             imageY = 64 + imageH * indexY + indexY * margin
-            let iv: UIImageView = UIImageView.init(frame: CGRect.init(x: imageX, y: imageY, width: imageW, height: imageH))
-            view.addSubview(iv)
-            iv.image = divideImages?[index]
-            index += 1
+            iv.frame = CGRect.init(x: imageX, y: imageY, width: imageW, height: imageH)
             
+            view.addSubview(iv)
+            imageViews?.append(iv)
+            iv.image = image
+            index += 1
         }
     }
     
     // MARK: ==LAZY ADD==
-//    lazy private var imageView: UIImageView = {
-//        let iv = UIImageView.init()
-//        iv.backgroundColor = UIColor.yellow
-//        return iv
-//    }()
+    private lazy var pickerView: YYNumberPickerView = {
+        let picker = YYNumberPickerView.init(frame: view.bounds)
+        picker.block = {(_ row: Int, _ col: Int) in
+            
+            self.divideImages?.removeAll();
+            
+            if self.imageViews?.isEmpty == false {
+                print("imageViews count = \(String(describing: self.imageViews?.count))")
+                for item in self.imageViews!{
+                    item.removeFromSuperview()
+                }
+            }
+            
+            self.imageViews?.removeAll()
+            
+            self.refreshLayout(row: row, col: col)
+            
+            print("row = \(row) col = \(col)")
+            print("imageViews count = \(String(describing: self.imageViews?.count))")
+        }
+        return picker
+    }()
 }
