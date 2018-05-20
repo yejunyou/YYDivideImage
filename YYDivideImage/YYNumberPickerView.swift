@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UIView_Positioning
 
 class YYNumberPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource  {
     typealias PickerCompleteBlock = (_ row: Int,_ col: Int) ->()
@@ -29,6 +30,12 @@ class YYNumberPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource  
             dataList.append("\(i)")
         }
         
+        let bgView: UIView = UIView.init()
+        bgView.frame = CGRect.init(x: 0, y: 0, width: self.width, height: self.height)
+        bgView.backgroundColor = UIColor.red
+        bgView.alpha = 0.3
+        addSubview(bgView)
+        
         pickerView = UIPickerView.init()
         pickerView.dataSource = self
         pickerView.delegate = self
@@ -36,25 +43,25 @@ class YYNumberPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource  
         
         pickerView.selectRow(2, inComponent: 0, animated: true)
         pickerView.selectRow(2, inComponent: 1, animated: true)
-        
+
         let h: CGFloat = 150
-        
-        pickerView.frame = CGRect.init(x: 0, y: frame.size.height, width: frame.size.width, height: h)
+        pickerView.frame = CGRect.init(x: 0, y: 150, width: self.width, height: h)
         addSubview(pickerView)
         
-        backgroundColor = UIColor.gray
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(tapClick))
         addGestureRecognizer(tap)
     }
     
+    // MARK: 确认点击
     @objc func tapClick() {
         UIView.animate(withDuration: 0.5) {
-            self.pickerView.frame = CGRect.init(x: 0, y: self.frame.size.height, width: self.frame.size.width, height: self.frame.size.height)
-            self.alpha = 0
+            self.y = self.height
+            yyLog("")
         }
         
         if let _ = block {
             block(selectedRow, selectedCol)
+//            self.removeFromSuperview()
         }
     }
     
@@ -62,15 +69,16 @@ class YYNumberPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource  
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// show
     public func show() {
         UIView.animate(withDuration: 0.5) {
-            let h: CGFloat = 150
-            let y: CGFloat = self.frame.size.height - h
-            self.pickerView.frame = CGRect.init(x: 0, y: y, width: self.frame.size.width, height: h)
-            self.alpha = 1.0
+            self.y = 0
+//            self.alpha = 1.0
+            yyLog("\(self.frame) --- \(self.pickerView.frame)")
         }
     }
     
+    // MARK: data source method
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2;
     }

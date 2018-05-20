@@ -7,5 +7,5 @@ target 'YYDivideImage' do
 
   # Pods for YYDivideImage
 pod 'SnapKit', '~> 4.0.0'
-
+pod 'UIView+Positioning'
 end
