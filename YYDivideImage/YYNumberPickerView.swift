@@ -56,7 +56,7 @@ class YYNumberPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource  
     @objc func tapClick() {
         UIView.animate(withDuration: 0.5) {
             self.y = self.height
-            yyLog("")
+            
         }
         
         if let _ = block {
@@ -98,7 +98,7 @@ class YYNumberPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource  
     
     // selected
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("\(component)" + "-" + "\(dataList[row])")
+        yyLog("\(component)" + "-" + "\(dataList[row])")
         if component == 0 {
             selectedRow = Int(dataList[row])
         } else {

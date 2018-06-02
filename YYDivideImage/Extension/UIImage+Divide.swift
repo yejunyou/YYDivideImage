@@ -14,16 +14,17 @@ extension UIImage {
 
         let originSize = self.size;
         let divideW: CGFloat = originSize.width/CGFloat(col);
-        let divideH: CGFloat = originSize.width/CGFloat(col);
+        let divideH: CGFloat = originSize.height/CGFloat(row);
 
         var imageArray: [UIImage] = []
         
         for i in 0..<col*row {
             let indexX: CGFloat = CGFloat(i%col)
-            let indexY: CGFloat = CGFloat(i/row)
+            let indexY: CGFloat = CGFloat(i/col)
             let divideRect = CGRect.init(x: indexX*divideW, y: indexY*divideH, width: divideW, height: divideH)
             if let divideImage = self.divideImage(rect: divideRect) {
                 imageArray.append(divideImage)
+                yyLog("xuanhuancishu:\(i) colxrow=\(col*row)")
             }
         }
         

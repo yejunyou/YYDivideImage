@@ -10,6 +10,7 @@ import UIKit
 
 class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
     
+    private var imageSize: CGSize!
     private var image: UIImage
     private var divideImages: [UIImage]?
     private var currentCol: Int!
@@ -23,6 +24,7 @@ class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
     // MARK: init ==method==
     init(image: UIImage) {
         self.image = image
+        self.imageSize = image.size
         super.init(nibName: nil, bundle: nil)
 
         currentCol = 3
@@ -49,6 +51,8 @@ class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
         view.backgroundColor = UIColor(red: 109 / 255, green: 117 / 255, blue: 127 / 255, alpha: 1)
         view.addSubview(previewCollectionView)
         view.addSubview(pickerView)
+        
+        previewCollectionView.height = view.bounds.size.width * imageSize.height/imageSize.width
     }
     
     
@@ -59,7 +63,7 @@ class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
         
         divideImages?.removeAll()
         divideImages = nil
-        divideImages = image.divide(row: pickerView.selectedRow, col: pickerView.selectedCol)
+        divideImages = image.divide(row: currentRow, col: currentCol)
         previewCollectionView.reloadData()
     }
     
@@ -85,9 +89,7 @@ class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
         picker.y = view.height
         picker.block = {(_ row: Int, _ col: Int) in
             
-            print("row = \(row) col = \(col)")
             self.refreshLayout(row: row, col: col)
-//            self.previewCollectionView.reloadData()
         }
         return picker
     }()
@@ -111,7 +113,6 @@ class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
 //MARK: ==UICollectionViewDataSource==
 extension YYDivideImageViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        yyLog("--")
         if let _ = divideImages {
             yyLog(divideImages?.count)
             return (divideImages?.count)!
@@ -121,14 +122,12 @@ extension YYDivideImageViewController: UICollectionViewDataSource, UICollectionV
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        yyLog("return 1")
         return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: PreviewImageCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! PreviewImageCollectionViewCell
         cell.previewImageView.image = divideImages![indexPath.item]
-        yyLog("return cell")
         return cell
     }
     
@@ -137,11 +136,12 @@ extension YYDivideImageViewController: UICollectionViewDataSource, UICollectionV
             
             let row:CGFloat = CGFloat(pickerView.selectedRow)
             let col:CGFloat = CGFloat(pickerView.selectedCol)
+            
 
             let width: CGFloat = (CGFloat(previewCollectionView.frame.width) - minspace * (col - 1))/col
             let height: CGFloat = (CGFloat(previewCollectionView.frame.height) - minspace * (row - 1))/row
             
-            yyLog("return CGSize(width: width / count, height: height / count)")
+//            yyLog("return CGSize(width: \(width), height: \(height)")
             return CGSize(width: width, height: height)
         }else {
             yyLog("return CGSize.zero")
@@ -149,8 +149,8 @@ extension YYDivideImageViewController: UICollectionViewDataSource, UICollectionV
         }
     }
 }
-func yyLog<T>(_ message:T, file:String = #file, function:String = #function,
-              line:Int = #line) {
+
+func yyLog<T>(_ message:T, file:String = #file, function:String = #function, line:Int = #line) {
     #if DEBUG
         //获取文件名
         let fileName = (file as NSString).lastPathComponent
