@@ -15,6 +15,11 @@
 		7520A80820AB5EA500552E71 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7520A80920AB5EA500552E71 /* SnapKit.framework */; };
 		7520A80B20AB5FFA00552E71 /* YYDivideImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7520A80A20AB5FFA00552E71 /* YYDivideImageViewController.swift */; };
 		7520A80F20ABC88E00552E71 /* UIImage+Divide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7520A80E20ABC88E00552E71 /* UIImage+Divide.swift */; };
+		75901D1520C26CAE0009748A /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75901D1020C26CAE0009748A /* UIColor.swift */; };
+		75901D1620C26CAE0009748A /* UIButton+Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75901D1120C26CAE0009748A /* UIButton+Category.swift */; };
+		75901D1720C26CAE0009748A /* UILabel+Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75901D1220C26CAE0009748A /* UILabel+Category.swift */; };
+		75901D1820C26CAE0009748A /* NSString+Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75901D1320C26CAE0009748A /* NSString+Category.swift */; };
+		75901D1920C26CAE0009748A /* UIImage+Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75901D1420C26CAE0009748A /* UIImage+Category.swift */; };
 		75AAA8BC20AF865100D03D7C /* YYNumberPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AAA8BB20AF865100D03D7C /* YYNumberPickerView.swift */; };
 		75AAA8D220B0DB5C00D03D7C /* PreviewImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AAA8D020B0DB5C00D03D7C /* PreviewImageCollectionViewCell.swift */; };
 		75AAA8D320B0DB5C00D03D7C /* PreviewImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75AAA8D120B0DB5C00D03D7C /* PreviewImageCollectionViewCell.xib */; };
@@ -35,6 +40,11 @@
 		7520A80920AB5EA500552E71 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7520A80A20AB5FFA00552E71 /* YYDivideImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YYDivideImageViewController.swift; sourceTree = "<group>"; };
 		7520A80E20ABC88E00552E71 /* UIImage+Divide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Divide.swift"; sourceTree = "<group>"; };
+		75901D1020C26CAE0009748A /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		75901D1120C26CAE0009748A /* UIButton+Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Category.swift"; sourceTree = "<group>"; };
+		75901D1220C26CAE0009748A /* UILabel+Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Category.swift"; sourceTree = "<group>"; };
+		75901D1320C26CAE0009748A /* NSString+Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+Category.swift"; sourceTree = "<group>"; };
+		75901D1420C26CAE0009748A /* UIImage+Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Category.swift"; sourceTree = "<group>"; };
 		75AAA8BB20AF865100D03D7C /* YYNumberPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYNumberPickerView.swift; sourceTree = "<group>"; };
 		75AAA8D020B0DB5C00D03D7C /* PreviewImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		75AAA8D120B0DB5C00D03D7C /* PreviewImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreviewImageCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -112,6 +122,11 @@
 		7520A80D20ABC82700552E71 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				75901D1320C26CAE0009748A /* NSString+Category.swift */,
+				75901D1120C26CAE0009748A /* UIButton+Category.swift */,
+				75901D1020C26CAE0009748A /* UIColor.swift */,
+				75901D1420C26CAE0009748A /* UIImage+Category.swift */,
+				75901D1220C26CAE0009748A /* UILabel+Category.swift */,
 				7520A80E20ABC88E00552E71 /* UIImage+Divide.swift */,
 			);
 			path = Extension;
@@ -259,10 +274,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				7520A7F320AB5DA100552E71 /* AppDelegate.swift in Sources */,
+				75901D1820C26CAE0009748A /* NSString+Category.swift in Sources */,
+				75901D1620C26CAE0009748A /* UIButton+Category.swift in Sources */,
+				75901D1920C26CAE0009748A /* UIImage+Category.swift in Sources */,
 				75AAA8BC20AF865100D03D7C /* YYNumberPickerView.swift in Sources */,
 				7520A80520AB5E8A00552E71 /* YYHomeViewController.swift in Sources */,
+				75901D1720C26CAE0009748A /* UILabel+Category.swift in Sources */,
 				7520A80720AB5E9300552E71 /* YYNavigationViewController.swift in Sources */,
 				7520A80F20ABC88E00552E71 /* UIImage+Divide.swift in Sources */,
+				75901D1520C26CAE0009748A /* UIColor.swift in Sources */,
 				75AAA8D220B0DB5C00D03D7C /* PreviewImageCollectionViewCell.swift in Sources */,
 				7520A80B20AB5FFA00552E71 /* YYDivideImageViewController.swift in Sources */,
 			);
