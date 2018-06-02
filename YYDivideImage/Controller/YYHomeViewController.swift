@@ -8,6 +8,9 @@
 
 import UIKit
 import SnapKit
+import AVFoundation
+import Photos
+import PKHUD
 
 class YYHomeViewController: UIViewController {
 
@@ -19,6 +22,62 @@ class YYHomeViewController: UIViewController {
         setupInit()
         addsubview()
 //        layout()
+    }
+    
+    // MARK: ==event response==
+    @objc private func pickerImage(){
+        if getAlbumPermission() == false{
+            HUD.flash(.label("没有访问相册权限，请到系统设置授权，么么哒"), delay: 3)
+            return
+        }
+        
+        let pickerVC = UIImagePickerController.init()
+//        pickerVC.allowsEditing = true
+        pickerVC.sourceType = .savedPhotosAlbum
+        pickerVC.delegate = self
+        pickerVC.delegate = self
+        self.present(pickerVC, animated: true, completion: nil)
+    }
+    
+    @objc func cameraClick() {
+        if getCameraPermissions() == false {
+            HUD.flash(.label("没有拍照权限，请到系统设置授权，么么哒"), delay: 3)
+            return
+        }
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+            let cameraPicker = UIImagePickerController.init()
+//            cameraPicker.allowsEditing = true
+            cameraPicker.delegate = self
+            cameraPicker.sourceType = .camera
+            self.present(cameraPicker, animated: true, completion: nil)
+        } else {
+            HUD.flash(.label("没有拍照权限，请到系统设置授权，么么哒"), delay: 3)
+        }
+    }
+    
+    // 相册授权
+    func getAlbumPermission() -> Bool {
+        return PHPhotoLibrary.authorizationStatus() == .authorized ||
+            PHPhotoLibrary.authorizationStatus() == .notDetermined
+    }
+  
+    // 相机权限
+    private func getCameraPermissions()-> Bool {
+        let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
+        
+        // .notDetermined  .authorized  .restricted  .denied
+        if authStatus == .notDetermined {
+            // 第一次触发授权 alert
+            AVCaptureDevice.requestAccess(for: .video, completionHandler: { (auth) in
+            
+            })
+            return true
+        } else if authStatus == .authorized {
+            return true
+        } else {
+            return false
+        }
     }
     
     // MARK : UI
@@ -49,10 +108,6 @@ class YYHomeViewController: UIViewController {
         }
     }
     
-    @objc func divideButtonClick() {
-        print("%s",__FOUNDATION_NSPOINTERFUNCTIONS__);
-    }
-    
     
     // MARK: lazy add
     
@@ -68,19 +123,9 @@ class YYHomeViewController: UIViewController {
         var btnW: CGFloat = 120
         var btnX: CGFloat = (kScreenW - btnW)/2
         let btn = UIButton.init(title: "打开相机", center: CGPoint.init(x: kScreenW/2, y: divideIamgeButton.bottom + 50), style: .simpleBlueStyle)
-        btn.addTarget(self, action: #selector(divideButtonClick), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(cameraClick), for: .touchUpInside)
         return btn
     }()
-    
-    // MARK: event response
-    @objc private func pickerImage(){
-        let pickerVC = UIImagePickerController.init()
-//        pickerVC.allowsEditing = true
-        pickerVC.sourceType = .savedPhotosAlbum
-        pickerVC.delegate = self
-        pickerVC.delegate = self
-        self.present(pickerVC, animated: true, completion: nil)
-    }
 }
 
 // MARK : 打开相册

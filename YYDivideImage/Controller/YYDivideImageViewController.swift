@@ -8,6 +8,13 @@
 
 import UIKit
 import Photos
+import PKHUD
+
+enum PhotoAlbumUtilResult {
+    case success
+    case error
+    case denied
+}
 
 class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
     
@@ -41,13 +48,11 @@ class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = kColorHex(0xf5f5f5)
+        
         addSubviews()
-        layout()
         setupNavItem()
     }
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-    }
+    
     
     private func addSubviews(){
         view.backgroundColor = UIColor(red: 109 / 255, green: 117 / 255, blue: 127 / 255, alpha: 1)
@@ -80,10 +85,7 @@ class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
         view.addSubview(pickerView)
         pickerView.show()
     }
-    
-    private func layout(){
-        
-    }
+
     
     // MARK: ==private method==
     // 重新选择
@@ -95,34 +97,101 @@ class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
         self.present(pickerVC, animated: true, completion: nil)
     }
     
+    //判断是否授权
+    func isAuthorized() -> Bool {
+        return PHPhotoLibrary.authorizationStatus() == .authorized ||
+            PHPhotoLibrary.authorizationStatus() == .notDetermined
+    }
+    
     // 保存到相册
     @objc private func saveClick(){
-        for var img in divideImages! {
-//            UIImageWriteToSavedPhotosAlbum(img, self, #selector(saveImage(image:didFinishSavingWithError:contextInfo:)), nil)
-            PHPhotoLibrary.shared().performChanges({
-                let result = PHAssetChangeRequest.creationRequestForAsset(from: img)
-                let assetPlaceholder = result.placeholderForCreatedAsset
-                //保存标志符
-                self.localId = assetPlaceholder?.localIdentifier
-            }) { (isSuccess: Bool, error: Error?) in
-                if isSuccess {
-                    yyLog("保存成功!")
-                    //通过标志符获取对应的资源
-                    let assetResult = PHAsset.fetchAssets(withLocalIdentifiers: [self.localId!], options: nil)
-                    let asset = assetResult[0]
-                    let options = PHContentEditingInputRequestOptions()
-                    options.canHandleAdjustmentData = {(adjustmeta: PHAdjustmentData)
-                        -> Bool in
-                        return true
-                    }
-                    //获取保存的图片路径
-                    asset.requestContentEditingInput(with: options, completionHandler: {
-                        (contentEditingInput:PHContentEditingInput?, info: [AnyHashable : Any]) in
-                        print("地址：",contentEditingInput!.fullSizeImageURL!)
-                    })
-                } else{
-                    print("保存失败：", error!.localizedDescription)
+        let delay = DispatchTime.now() + 0.1
+        var isShowing = false
+        HUD.flash(.label("保存中。。。"), onView: self.view)
+        
+        for img in self.divideImages! {
+            
+            //方法调用
+            self.saveImageInAlbum(image: img, albumName: "Album-YY分图") { (result) in
+                
+                if isShowing == true {
+                    return
                 }
+                isShowing = true
+                
+                var resultString: String!
+                switch result{
+                    case .success:
+                        resultString = "保存成功"
+                    case .denied:
+                        resultString = "被拒绝"
+                    case .error:
+                        resultString = "保存错误"
+                    }
+                
+                DispatchQueue.main.asyncAfter(deadline: delay) {
+                    HUD.flash(.label(resultString), onView: self.view, delay: 2.0, completion: nil)
+                    let delay = DispatchTime.now() + 2
+                    DispatchQueue.main.asyncAfter(deadline: delay, execute: {
+                        isShowing = false
+                    })
+                }
+            }
+        }
+    }
+    
+    //保存图片到相册
+    func saveImageInAlbum(image: UIImage, albumName: String = "", completion: ((_ result: PhotoAlbumUtilResult) -> ())?) {
+        
+        //权限验证
+        if !isAuthorized() {
+            completion?(.denied)
+            return
+        }
+        
+        var assetAlbum: PHAssetCollection?
+        //如果没有传相册的名字，则保存到相机胶卷。（否则保存到指定相册）
+        if albumName.isEmpty {
+            yyLog("没有传相册的名字")
+        }else {
+            //看保存的指定相册是否存在
+            let list = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: nil)
+            
+            list.enumerateObjects({ (album, index, stop) in
+                let assetCollection = album
+                if albumName == assetCollection.localizedTitle {
+                    assetAlbum = assetCollection
+                    stop.initialize(to: true)
+                }
+            })
+            
+            //不存在的话则创建该相册
+            if assetAlbum == nil {
+                PHPhotoLibrary.shared().performChanges({
+                    PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: albumName)
+                }, completionHandler: { (isSuccess, error) in
+                    self.saveImageInAlbum(image: image, albumName: albumName,completion: completion)
+                })
+                return
+            }
+        }
+        
+        //保存图片
+        PHPhotoLibrary.shared().performChanges({
+            //添加的相机胶卷
+            let result = PHAssetChangeRequest.creationRequestForAsset(from: image)
+            //是否要添加到相簿
+            if !albumName.isEmpty {
+                let assetPlaceholder = result.placeholderForCreatedAsset
+                let albumChangeRequset = PHAssetCollectionChangeRequest(for:assetAlbum!)
+                albumChangeRequset!.addAssets([assetPlaceholder!]  as NSArray)
+            }
+        }) { (isSuccess: Bool, error: Error?) in
+            if isSuccess {
+                completion?(.success)
+            } else{
+                print(error!.localizedDescription)
+                completion?(.error)
             }
         }
     }
@@ -174,7 +243,6 @@ class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
 extension YYDivideImageViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let _ = divideImages {
-            yyLog(divideImages?.count)
             return (divideImages?.count)!
         } else {
             return 0
@@ -197,14 +265,11 @@ extension YYDivideImageViewController: UICollectionViewDataSource, UICollectionV
             let row:CGFloat = CGFloat(pickerView.selectedRow)
             let col:CGFloat = CGFloat(pickerView.selectedCol)
             
-
             let width: CGFloat = (CGFloat(previewCollectionView.frame.width) - minspace * (col - 1))/col
             let height: CGFloat = (CGFloat(previewCollectionView.frame.height) - minspace * (row - 1))/row
             
-//            yyLog("return CGSize(width: \(width), height: \(height)")
             return CGSize(width: width, height: height)
         }else {
-            yyLog("return CGSize.zero")
             return CGSize.zero
         }
     }

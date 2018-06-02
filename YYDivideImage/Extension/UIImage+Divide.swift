@@ -24,7 +24,6 @@ extension UIImage {
             let divideRect = CGRect.init(x: indexX*divideW, y: indexY*divideH, width: divideW, height: divideH)
             if let divideImage = self.divideImage(rect: divideRect) {
                 imageArray.append(divideImage)
-                yyLog("xuanhuancishu:\(i) colxrow=\(col*row)")
             }
         }
         

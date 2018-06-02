@@ -21,6 +21,7 @@
 		75901D1820C26CAE0009748A /* NSString+Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75901D1320C26CAE0009748A /* NSString+Category.swift */; };
 		75901D1920C26CAE0009748A /* UIImage+Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75901D1420C26CAE0009748A /* UIImage+Category.swift */; };
 		75901D1B20C26F3F0009748A /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75901D1A20C26F3F0009748A /* Common.swift */; };
+		75901D1C20C285EE0009748A /* PKHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75901D1D20C285EE0009748A /* PKHUD.framework */; };
 		75AAA8BC20AF865100D03D7C /* YYNumberPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AAA8BB20AF865100D03D7C /* YYNumberPickerView.swift */; };
 		75AAA8D220B0DB5C00D03D7C /* PreviewImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AAA8D020B0DB5C00D03D7C /* PreviewImageCollectionViewCell.swift */; };
 		75AAA8D320B0DB5C00D03D7C /* PreviewImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75AAA8D120B0DB5C00D03D7C /* PreviewImageCollectionViewCell.xib */; };
@@ -47,6 +48,7 @@
 		75901D1320C26CAE0009748A /* NSString+Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+Category.swift"; sourceTree = "<group>"; };
 		75901D1420C26CAE0009748A /* UIImage+Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Category.swift"; sourceTree = "<group>"; };
 		75901D1A20C26F3F0009748A /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		75901D1D20C285EE0009748A /* PKHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PKHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75AAA8BB20AF865100D03D7C /* YYNumberPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YYNumberPickerView.swift; sourceTree = "<group>"; };
 		75AAA8D020B0DB5C00D03D7C /* PreviewImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		75AAA8D120B0DB5C00D03D7C /* PreviewImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreviewImageCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75901D1C20C285EE0009748A /* PKHUD.framework in Frameworks */,
 				75AAA8D420B1596100D03D7C /* UIView_Positioning.framework in Frameworks */,
 				7520A80820AB5EA500552E71 /* SnapKit.framework in Frameworks */,
 				F19BEAF99AFB1693B7C9D5B7 /* Pods_YYDivideImage.framework in Frameworks */,
@@ -154,6 +157,7 @@
 		BA862843BF96814D3C1C0902 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				75901D1D20C285EE0009748A /* PKHUD.framework */,
 				75AAA8D520B1596100D03D7C /* UIView_Positioning.framework */,
 				7520A80920AB5EA500552E71 /* SnapKit.framework */,
 				6865D5EE223A00CD45B61A76 /* Pods_YYDivideImage.framework */,
@@ -239,11 +243,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-YYDivideImage/Pods-YYDivideImage-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/UIView+Positioning/UIView_Positioning.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIView_Positioning.framework",
 			);

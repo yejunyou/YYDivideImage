@@ -127,7 +127,6 @@ extension YYNumberPickerView:  UIPickerViewDelegate, UIPickerViewDataSource{
     
     // selected
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        yyLog("\(component)" + "-" + "\(dataList[row])")
         if component == 0 {
             selectedRow = Int(dataList[row])
         } else {
