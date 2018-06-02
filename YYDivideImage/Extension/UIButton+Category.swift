@@ -8,7 +8,32 @@
 
 import UIKit
 
+
+enum YYButtonStyle {
+    case simpleBlueStyle
+}
+
 extension UIButton {
+    convenience init(title: String, center: CGPoint , style: YYButtonStyle) {
+        
+        self.init()
+        
+        let buttonW: CGFloat = 120
+        let buttonH: CGFloat = 50
+        
+        switch style {
+        case .simpleBlueStyle:
+            setTitle(title, for: .normal)
+            setTitleColor(UIColor.white, for: .normal)
+            backgroundColor = kColorHex(0x0a60fe)
+            titleLabel?.font = UIFont.systemFont(ofSize: 18)
+            self.size = CGSize.init(width: buttonW, height: buttonH)
+            self.center = center
+            self.layer.cornerRadius = buttonH/2
+            self.layer.masksToBounds = true
+        }
+    }
+    
     convenience init(title: String, fontSize: CGFloat = 12, color: UIColor = UIColor.darkGray, backColor: UIColor = UIColor.white) {
         
         self.init()

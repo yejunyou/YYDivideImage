@@ -26,7 +26,7 @@ func kRandomColor ()-> UIColor{
     return kRGBColor(CGFloat(arc4random_uniform(255))/255.0, g: CGFloat(arc4random_uniform(255))/255.0, b: CGFloat(arc4random_uniform(255))/255.0)
 }
 
-func kColorWithHex(_ rgbValue: Int) -> (UIColor) {
+func kColorHex(_ rgbValue: Int) -> (UIColor) {
     return UIColor(red: ((CGFloat)((rgbValue & 0xFF0000) >> 16)) / 255.0,
                    green: ((CGFloat)((rgbValue & 0xFF00) >> 8)) / 255.0,
                    blue: ((CGFloat)(rgbValue & 0xFF)) / 255.0,
@@ -34,7 +34,7 @@ func kColorWithHex(_ rgbValue: Int) -> (UIColor) {
 }
 
 func kMainBlueColor() -> (UIColor) {
-    return kColorWithHex(0x23CDFD)
+    return kColorHex(0x23CDFD)
 }
 
 //

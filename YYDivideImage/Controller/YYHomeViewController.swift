@@ -14,9 +14,11 @@ class YYHomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = kColorHex(0xf5f5f5)
+        
         setupInit()
         addsubview()
-        layout()
+//        layout()
     }
     
     // MARK : UI
@@ -53,20 +55,21 @@ class YYHomeViewController: UIViewController {
     
     
     // MARK: lazy add
+    
     lazy private var divideIamgeButton: UIButton = {
-        let button = UIButton.init(type: .custom)
-        button.setTitle("打开相册", for: .normal)
-        button.backgroundColor = UIColor.green
-        button.addTarget(self, action: #selector(pickerImage), for: .touchUpInside)
-        return button
+        var btnW: CGFloat = 120
+        var btnX: CGFloat = (kScreenW - btnW)/2
+        let btn = UIButton.init(title: "打开相册", center: CGPoint.init(x: kScreenW/2, y: kTopHeight + 50), style: .simpleBlueStyle)
+        btn.addTarget(self, action: #selector(pickerImage), for: .touchUpInside)
+        return btn
     }()
     
     lazy private var groupIamgeButton: UIButton = {
-        let button = UIButton.init(type: .custom)
-        button.setTitle("打开相机", for: .normal)
-        button.backgroundColor = UIColor.green
-        button.addTarget(self, action: #selector(divideButtonClick), for: .touchUpInside)
-        return button
+        var btnW: CGFloat = 120
+        var btnX: CGFloat = (kScreenW - btnW)/2
+        let btn = UIButton.init(title: "打开相机", center: CGPoint.init(x: kScreenW/2, y: divideIamgeButton.bottom + 50), style: .simpleBlueStyle)
+        btn.addTarget(self, action: #selector(divideButtonClick), for: .touchUpInside)
+        return btn
     }()
     
     lazy private var pickerImageViewController: UIImagePickerController = {

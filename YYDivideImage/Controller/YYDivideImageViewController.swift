@@ -38,7 +38,7 @@ class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.gray
+        view.backgroundColor = kColorHex(0xf5f5f5)
         addSubviews()
         layout()
         setupNavItem()
@@ -51,6 +51,8 @@ class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
         view.backgroundColor = UIColor(red: 109 / 255, green: 117 / 255, blue: 127 / 255, alpha: 1)
         view.addSubview(previewCollectionView)
         view.addSubview(pickerView)
+        view.addSubview(rechoiceButton)
+        view.addSubview(saveButton)
         
         previewCollectionView.height = view.bounds.size.width * imageSize.height/imageSize.width
     }
@@ -106,6 +108,22 @@ class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
         pView.register(UINib(nibName: "PreviewImageCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "cell")
         return pView
     }()
+    
+    private lazy var rechoiceButton: UIButton = {
+        var btnW: CGFloat = 120
+        var btnX: CGFloat = (kScreenW - btnW)/2
+        let btn = UIButton.init(title: "重新选择", center: CGPoint.init(x: kScreenW/4, y: view.height - 50), style: .simpleBlueStyle)
+//        btn.addTarget(self, action: #selector(hiddenClick), for: .touchUpInside)
+        return btn
+    } ()
+    
+    private lazy var saveButton: UIButton = {
+        var btnW: CGFloat = 120
+        var btnX: CGFloat = (kScreenW - btnW)/2
+        let btn = UIButton.init(title: "保    存", center: CGPoint.init(x: kScreenW/4*3, y: view.height - 50), style: .simpleBlueStyle)
+//        btn.addTarget(self, action: #selector(tapClick), for: .touchUpInside)
+        return btn
+    } ()
 }
 
 

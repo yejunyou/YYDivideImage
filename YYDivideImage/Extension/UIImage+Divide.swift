@@ -52,7 +52,7 @@ extension UIImage {
     
     func getDataSize() -> Int {
         let data = UIImageJPEGRepresentation(self, 1.0)
-        //        let data = UIImagePNGRepresentation(self)
+//        let data = UIImagePNGRepresentation(self)
         print("\((data?.count)! / 1024)KB")
         return (data?.count)! / 1024
     }
