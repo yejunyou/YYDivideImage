@@ -84,6 +84,19 @@ class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
     }
     
     // MARK: ==private method==
+    @objc private func repickerClick(){
+        let pickerVC = UIImagePickerController.init()
+        //        pickerVC.allowsEditing = true
+        pickerVC.sourceType = .savedPhotosAlbum
+        pickerVC.delegate = self
+        pickerVC.delegate = self
+        self.present(pickerVC, animated: true, completion: nil)
+        
+    }
+    
+    @objc private func saveClick(){
+        
+    }
     
     // MARK: ==LAZY ADD==
     private lazy var pickerView: YYNumberPickerView = {
@@ -113,7 +126,7 @@ class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
         var btnW: CGFloat = 120
         var btnX: CGFloat = (kScreenW - btnW)/2
         let btn = UIButton.init(title: "重新选择", center: CGPoint.init(x: kScreenW/4, y: view.height - 50), style: .simpleBlueStyle)
-//        btn.addTarget(self, action: #selector(hiddenClick), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(repickerClick), for: .touchUpInside)
         return btn
     } ()
     
@@ -121,7 +134,7 @@ class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
         var btnW: CGFloat = 120
         var btnX: CGFloat = (kScreenW - btnW)/2
         let btn = UIButton.init(title: "保    存", center: CGPoint.init(x: kScreenW/4*3, y: view.height - 50), style: .simpleBlueStyle)
-//        btn.addTarget(self, action: #selector(tapClick), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(saveClick), for: .touchUpInside)
         return btn
     } ()
 }
@@ -168,11 +181,24 @@ extension YYDivideImageViewController: UICollectionViewDataSource, UICollectionV
     }
 }
 
-func yyLog<T>(_ message:T, file:String = #file, function:String = #function, line:Int = #line) {
-    #if DEBUG
-        //获取文件名
-        let fileName = (file as NSString).lastPathComponent
-        //打印日志内容
-        print("\(fileName):\(line) \(function) | \(message)")
-    #endif
+// MARK : 打开相册
+extension YYDivideImageViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    
+    /// 选中图片
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        // 获取原图
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.image = image
+            self.refreshLayout(row: 3, col: 3)
+            previewCollectionView.height = view.bounds.size.width * image.size.height/image.size.width
+        }
+    }
+    
+    /// 取消
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
 }
+

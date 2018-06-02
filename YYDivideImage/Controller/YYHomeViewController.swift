@@ -72,18 +72,14 @@ class YYHomeViewController: UIViewController {
         return btn
     }()
     
-    lazy private var pickerImageViewController: UIImagePickerController = {
-        let pickerVC = UIImagePickerController.init()
-        pickerVC.delegate = self
-//        pickerVC.allowsEditing = true
-        pickerVC.sourceType = .savedPhotosAlbum
-        return pickerVC
-    }()
-    
     // MARK: event response
     @objc private func pickerImage(){
-        self.present(pickerImageViewController, animated: true, completion: nil)
-        
+        let pickerVC = UIImagePickerController.init()
+//        pickerVC.allowsEditing = true
+        pickerVC.sourceType = .savedPhotosAlbum
+        pickerVC.delegate = self
+        pickerVC.delegate = self
+        self.present(pickerVC, animated: true, completion: nil)
     }
 }
 
