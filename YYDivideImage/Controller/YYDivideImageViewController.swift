@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
     
@@ -16,6 +17,7 @@ class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
     private var currentCol: Int!
     private var currentRow: Int!
     private var imageCount: Int?
+    private var localId: String?
     
     // view
 //    private var previewCollectionView: UICollectionView!
@@ -84,18 +86,45 @@ class YYDivideImageViewController: UIViewController,UICollectionViewDelegate {
     }
     
     // MARK: ==private method==
+    // 重新选择
     @objc private func repickerClick(){
         let pickerVC = UIImagePickerController.init()
-        //        pickerVC.allowsEditing = true
         pickerVC.sourceType = .savedPhotosAlbum
         pickerVC.delegate = self
         pickerVC.delegate = self
         self.present(pickerVC, animated: true, completion: nil)
-        
     }
     
+    // 保存到相册
     @objc private func saveClick(){
-        
+        for var img in divideImages! {
+//            UIImageWriteToSavedPhotosAlbum(img, self, #selector(saveImage(image:didFinishSavingWithError:contextInfo:)), nil)
+            PHPhotoLibrary.shared().performChanges({
+                let result = PHAssetChangeRequest.creationRequestForAsset(from: img)
+                let assetPlaceholder = result.placeholderForCreatedAsset
+                //保存标志符
+                self.localId = assetPlaceholder?.localIdentifier
+            }) { (isSuccess: Bool, error: Error?) in
+                if isSuccess {
+                    yyLog("保存成功!")
+                    //通过标志符获取对应的资源
+                    let assetResult = PHAsset.fetchAssets(withLocalIdentifiers: [self.localId!], options: nil)
+                    let asset = assetResult[0]
+                    let options = PHContentEditingInputRequestOptions()
+                    options.canHandleAdjustmentData = {(adjustmeta: PHAdjustmentData)
+                        -> Bool in
+                        return true
+                    }
+                    //获取保存的图片路径
+                    asset.requestContentEditingInput(with: options, completionHandler: {
+                        (contentEditingInput:PHContentEditingInput?, info: [AnyHashable : Any]) in
+                        print("地址：",contentEditingInput!.fullSizeImageURL!)
+                    })
+                } else{
+                    print("保存失败：", error!.localizedDescription)
+                }
+            }
+        }
     }
     
     // MARK: ==LAZY ADD==
